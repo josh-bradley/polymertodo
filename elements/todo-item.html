@@ -1,0 +1,12 @@
+<link rel="import" href="../js/lib/polymer/polymer.html">
+<link rel="import" href="../js/lib/core-icon-button/core-icon-button.html">
+<link rel="import" href="../js/lib/paper-checkbox/paper-checkbox.html">
+
+<polymer-element name="todo-item" attributes="item onDelete onEdit" noscript>
+    <template>
+            <paper-checkbox checked="{{item.isChecked}}"></paper-checkbox>
+            <span style="width:900px;padding-left:10px">{{item.name}}</span>
+            <core-icon-button style="float:right" icon="delete" on-click="{{onDelete}}"></core-icon-button>
+            <core-icon-button style="float:right" icon="create" on-click="{{onEdit}}"></core-icon-button>
+    </template>
+</polymer-element>

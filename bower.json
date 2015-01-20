@@ -1,0 +1,21 @@
+{
+  "name": "ToDo",
+  "version": "0.0.0",
+  "description": "Todo list",
+  "main": "Index.html",
+  "authors": [
+    "Josh"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/js/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~0.5.2"
+  }
+}
