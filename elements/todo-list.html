@@ -14,7 +14,6 @@
         <div vertical layout style="margin:0 auto;width:1000px;">
             <div horizontal layout center-justified style="display:flex;align-items:flex-end">
                 <paper-input label="Enter task name" value="{{newItemName}}" style="width:80%" on-keypress="{{addItem}}" floatinglabel>
-
                 </paper-input>
                     <core-icon-button icon="add" on-click="{{addItem}}" disabled?="{{!newItemName}}"></core-icon-button>
                 </div>
