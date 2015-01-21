@@ -1,10 +1,14 @@
 <link rel="import" href="../js/lib/polymer/polymer.html">
+
 <link rel="import" href="../js/lib/core-icon-button/core-icon-button.html">
 <link rel="import" href="../js/lib/core-localstorage/core-localstorage.html">
 <link rel="import" href="../js/lib/core-overlay/core-overlay.html">
 <link rel="import" href="../js/lib/core-toolbar/core-toolbar.html">
 <link rel="import" href="../js/lib/core-input/core-input.html">
+
 <link rel="import" href="../js/lib/paper-input/paper-input.html">
+<link rel="import" href="../js/lib/paper-button/paper-button.html">
+
 <link rel="import" href="todo-item.html">
 
 <polymer-element name="todo-list">
@@ -12,16 +16,21 @@
         <div horizontal center-justified layout>
         <div vertical layout style="margin:0 auto;width:1000px;">
             <div horizontal layout center-justified style="display:flex;align-items:flex-end">
-                <paper-input label="Enter task name" value="{{newItemName}}" style="width:80%" on-keypress="{{addItem}}" floatinglabel>
+                <paper-input label="Enter task name" value="{{newItemName}}" style="width:80%;"  on-keypress="{{addItem}}" floatinglabel>
                 </paper-input>
-                    <core-icon-button icon="add" on-click="{{addItem}}" disabled?="{{!newItemName}}"></core-icon-button>
-                </div>
-                <core-localstorage name="items" value="{{items}}"></core-localstorage>
+                <core-icon-button icon="add" on-click="{{addItem}}" disabled?="{{!newItemName}}"></core-icon-button>
+            </div>
+                <core-localstorage id="store" name="items" value="{{items}}"></core-localstorage>
                 <template repeat="{{item, idx in items}}">
                     <div style="padding:10px 0">
-                        <todo-item item="{{item}}" onDelete="{{deleteSingle}}" onEdit="{{edit}}"></todo-item>
+                        <todo-item item="{{item}}" onDelete="{{deleteSingle}}" onEdit="{{edit}}" on-changes="{{onChange}}"></todo-item>
                     </div>
                 </template>
+
+            <div horizontal layout center-justified hidden?="{{!items.length}}">
+                <paper-button raised role="button" style="background-color:#0D904F;color:#FFF;" on-click="{{doneAll}}">Toggle All</paper-button>
+                <paper-button raised role="button" style="background-color:#d23f31;color:#FFF;" on-click="{{clearAll}}">Delete All</paper-button>
+            </div>
                 <core-overlay id="editDialog" backdrop layered class="dialog" >
                     <div layout vertical style="background:#FFF">
                     <core-toolbar style="background:#333;color:#FFF">
@@ -37,32 +46,5 @@
             </div>
         </div>
     </template>
-    <script>
-        Polymer("todo-list",  {
-            ready:function(){
-                var that = this;
-                this.items=[{name:"Build polymer app"},
-                    {name:"Do the thing", isChecked:true},
-                    {name:"Do the other thing"}],
-                this.addItem = function(e) {
-                    if(!e.keyCode || e.keyCode === 13 && this.newItemName) {
-                        this.items.push({name: this.newItemName});
-                        this.newItemName = "";
-                    }
-                };
-                this.deleteSingle = function(e){
-                    that.items = that.items.filter(function(item){ return item.name !== e.target.templateInstance.model.item.name});
-                };
-                this.edit = function(e){
-                    that.currentItem = e.target.templateInstance.model.item;
-                    that.$.editDialog.opened = true;
-                    that.tempName = that.currentItem.name;
-                };
-                this.saveItem = function(){
-                    that.$.editDialog.opened = false;
-                    that.currentItem.name = that.tempName;
-                }
-            }
-        });
-    </script>
+    <script src="../js/listModel.js" ></script>
 </polymer-element>
