@@ -1,12 +1,25 @@
 <link rel="import" href="../js/lib/polymer/polymer.html">
 <link rel="import" href="../js/lib/core-icon-button/core-icon-button.html">
 <link rel="import" href="../js/lib/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../js/lib/paper-shadow/paper-shadow.html">
 
-<polymer-element name="todo-item" attributes="item onDelete onEdit" noscript>
+<polymer-element name="todo-item" attributes="item onDelete onEdit">
     <template>
+        <paper-shadow style="height:50px;padding:10px;" z="2">
             <paper-checkbox checked="{{item.isChecked}}"></paper-checkbox>
             <span style="width:900px;padding-left:10px">{{item.name}}</span>
-            <core-icon-button style="float:right" icon="delete" on-click="{{onDelete}}"></core-icon-button>
-            <core-icon-button style="float:right" icon="create" on-click="{{onEdit}}"></core-icon-button>
+            <core-icon-button style="float:right;color:#d23f31" icon="delete" on-click="{{onDelete}}"></core-icon-button>
+            <core-icon-button style="float:right;color:#0D904F" icon="create" on-click="{{onEdit}}"></core-icon-button>
+        </paper-shadow>
     </template>
+    <script>
+        Polymer({
+            observe: {
+                "item.isChecked": "changes"
+            },
+            changes: function(){
+                this.fire("changes");
+            }
+        });
+    </script>
 </polymer-element>
