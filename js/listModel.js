@@ -29,6 +29,7 @@ Polymer("todo-list",  {
         };
         this.clearAll = function(){
             that.items = [];
+<<<<<<< HEAD
         };
         this.toggleOn = false;
         this.doneAll = function(){
@@ -37,5 +38,13 @@ Polymer("todo-list",  {
             });
             that.toggleOn = !that.toggleOn;
         };
+=======
+        }
+        this.doneAll = function(){
+            that.items.forEach(function(i){
+                i.isChecked = true;
+            });
+        }
+>>>>>>> 55c96c71d6a1b1335f68e3a318f060658729e0a2
     }
 });
